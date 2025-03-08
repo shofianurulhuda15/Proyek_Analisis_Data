@@ -34,11 +34,20 @@ http://localhost:8501
 
 ## 📑 Struktur Proyek
 ```
-├── notebook.ipynb      # Analisis data dan eksplorasi awal
-├── dashboard.py        # Aplikasi dashboard dengan Streamlit
-├── requirements.txt    # Daftar pustaka yang diperlukan
-├── data/               # Folder untuk dataset
-│   ├── bike_data.csv   # Data yang digunakan dalam dashboard
+proyek_analisis_data/
+│-- dashboard/
+│   │-- dashboard.py  # File utama Streamlit
+│   │-- main_data.csv # Dataset utama
+│   │-- requirements.txt # Dependencies untuk Streamlit
+│
+│-- data/
+│   │-- day.csv  # Data harian
+│   │-- hour.csv # Data per jam
+│   │-- Readme.txt  # Keterangan tambahan
+│
+│-- notebook.ipynb  # Notebook untuk eksplorasi & analisis data
+│-- README.md  # Dokumentasi proyek
+│-- requirements.txt  # Daftar dependensi
 ```
 
 ## 🛠️ Dependencies
