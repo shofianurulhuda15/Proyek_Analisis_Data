@@ -5,17 +5,28 @@ import seaborn as sns
 
 # Load Data
 def load_data():
-    df = pd.read_csv('dashboard/main_data.csv')
+    df = pd.read_csv('main_data.csv')
     return df
 
 df = load_data()
 
 # Dashboard Title
-st.title("Dashboard Analisis Data Bike Sharing")
+st.title("Dashboard Interaktif Analisis Data Bike Sharing")
+
+# Sidebar untuk Filter
+day_filter = st.sidebar.selectbox("Pilih Hari:", ['Semua'] + sorted(df['dteday'].unique().tolist()))
+hour_range = st.sidebar.slider("Pilih Rentang Jam:", 0, 23, (0, 23))
+show_summary = st.sidebar.checkbox("Tampilkan Ringkasan Data")
+
+# Filter Data
+if day_filter != 'Semua':
+    df = df[df['dteday'] == day_filter]
+df = df[(df['hr'] >= hour_range[0]) & (df['hr'] <= hour_range[1])]
 
 # Menampilkan Data
 st.header("Ringkasan Data")
-st.write(df.describe())
+if show_summary:
+    st.write(df.describe())
 
 # Visualisasi Peminjaman Sepeda Berdasarkan Jam
 st.header("Peminjaman Sepeda Berdasarkan Jam")
@@ -30,6 +41,9 @@ st.pyplot(fig)
 
 # Pengaruh Kondisi Cuaca terhadap Peminjaman
 st.header("Pengaruh Kondisi Cuaca terhadap Peminjaman Sepeda")
+selected_weather = st.selectbox("Pilih Kondisi Cuaca:", ['Semua'] + sorted(df['weathersit'].unique().tolist()))
+if selected_weather != 'Semua':
+    df = df[df['weathersit'] == selected_weather]
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.boxplot(x='weathersit', y='cnt', data=df, ax=ax)
 ax.set_title('Pengaruh Kondisi Cuaca terhadap Peminjaman Sepeda')
